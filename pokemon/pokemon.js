@@ -15,11 +15,22 @@
 const VALID_URL = "https://pokeapi.co/api/v2/pokemon/?limit=5";
 const INVALID_URL = "https://pokeapi.co/api/v2/pokemons/?limit=5";
 
+// Fetch the JSON data from the web API that responds to the `url` parameter
+// and return a promise that resolves to a corresponding JavaScript object.
+// Make sure to check for HTTP errors.
 async function fetchJSON(url) {
-  // TODO
-  // Fetch the JSON data from the web API that responds to the `url` parameter
-  // and return a promise that resolves to a corresponding JavaScript object.
-  // Make sure to check for HTTP errors.
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP Error ${response.status}`);
+    }
+
+    const parsedData = await response.json();
+    return parsedData;
+  } catch (err) {
+    console.log(err.message); //This will log the error in console
+    throw err;
+  }
 }
 
 function renderResults(pokemons) {
@@ -42,20 +53,34 @@ function renderError(err) {
   // 2. Set the text content of the HTML element with id `error` to the
   //    `.message` property of the `err` parameter.
   const errorElement = document.querySelector("#error");
-  errorElement.innerText = err;
+  errorElement.innerText = err.message;
 }
+
+// Use `fetchJSON()` to fetch data from the selected url.
+// If successful, render the data by calling function `renderResults()`.
+// On failure, render the error by calling function `renderError()`.
 
 function main() {
   const button = document.querySelector("#button");
-  button.addEventListener("click", () => {
+  button.addEventListener("click", async () => {
     const option = document.querySelector("#option");
     const url = option.checked ? INVALID_URL : VALID_URL;
 
-    // TODO
-    // Use `fetchJSON()` to fetch data from the selected url.
-    // If successful, render the data by calling function `renderResults()`.
-    // On failure, render the error by calling function `renderError()`.
+    try {
+      const response = await fetchJSON(url);
+      // console.log(response);
+      renderResults(response);
+    } catch (err) {
+      renderError(err);
+    }
   });
 }
 
 window.addEventListener("load", main);
+
+// last function without async/await
+//fetchJSON(url).then(renderResults).catch(renderError);
+// It's better to not catch the error in fetchJSON(url), if we console.log(error) we'll get undefined.
+//if we only have catch console.log(error) in fetchJSON(url), the error won't be handeled in main function.
+// In order to let main function handel the error either we should remove catch from fetchJSON(url) or add throw error; after console.log(error).
+// it's better that higher level function catch the error, in this case main function
