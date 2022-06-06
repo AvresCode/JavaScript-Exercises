@@ -1,0 +1,38 @@
+/* add your styling here */
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10vh;
+  min-height: 100%;
+  margin: 0;
+
+  background: linear-gradient(rgb(46, 20, 66), rgb(187, 139, 207));
+}
+
+.button-section {
+  width: 40vw;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html {
+  min-height: 100%;
+}
+.pokemon-button,
+.select {
+  height: 6vh;
+  width: 12vw;
+  border-radius: 2rem;
+  background: rgb(241, 212, 243);
+  font-size: 1rem;
+  margin: 1rem;
+}
+img {
+  width: 30vw;
+  margin-top: 1vh;
+}
