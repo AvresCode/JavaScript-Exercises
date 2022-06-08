@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 /*------------------------------------------------------------------------------
 Full description at: https://github.com/HackYourFuture/Homework/tree/main/2-Browsers/Week1#exercise-5-the-cat-walk
 1. Create a variable to store a reference to the `<img>` element.
@@ -18,31 +18,8 @@ Full description at: https://github.com/HackYourFuture/Homework/tree/main/2-Brow
    Dancing cat URL:
    https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif
 -----------------------------------------------------------------------------*/
-const catImage = document.querySelector('img');
-catImage.style.left = '0px';
-let moveToRight = 0;
-let move = null;
-
 function catWalk() {
-  move = setInterval(() => {
-    moveToRight += 10;
-    catImage.style.left = `${moveToRight}px`;
-
-    const middleOfTheScreen =
-      Math.round((window.innerWidth - catImage.width) / 20) * 10;
-    if (moveToRight > window.innerWidth - catImage.width) {
-      moveToRight = 0;
-    } else if (moveToRight === middleOfTheScreen) {
-      clearInterval(move);
-      catImage.src =
-        'https://media1.tenor.com/images/2de63e950fb254920054f9bd081e8157/tenor.gif';
-
-      setTimeout(() => {
-        catImage.src =
-          'http://www.anniemation.com/clip_art/images/cat-walk.gif';
-        catWalk();
-      }, 5000);
-    }
-  }, 50);
+  // TODO complete this function
 }
-window.addEventListener('load', catWalk);
+
+// TODO execute `catWalk` when the browser has completed loading the page
